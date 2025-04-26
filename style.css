@@ -5,8 +5,8 @@
     --blue-100: hsl(218,22%,67%);
     --blue-600: hsl(212,100%,33%);
     --white: hsl(0,0%,100%);
-    --white-50: hsl(from var(--white), h s l / 0.5);
-    --white-75: hsl(from var(--white), h s l / 0.75);
+    --white-50: hsl(from var(--white) h s l / 0.5);
+    --white-75: hsl(from var(--white) h s l / 0.75);
     --black: hsl(0,0%,0%);
 
     --space-50: 4px;
@@ -147,17 +147,31 @@ button {
         flex-direction: var(--cluster-direction, row);
         flex-wrap: wrap;
         gap: var(--cluster-space, var(--space-300));
-        justify-content: var(--cluster-justify, flex-start);
+        justify-content: var(--cluster-justify, start);
         align-items: var(--cluster-align, center);
     }
+
+.halves {
+        display: flex;
+        flex-wrap: wrap;
+
+        > * {
+            flex: 1 1 225px;
+        }
+
+        [data-fullwidth] {
+            flex-basis: 100%;
+        }
+
+}
+
 
 .challenge-wrapper {
         --_max-width: var(--max-width, 320px);
         display: grid;
         place-items: center;
         min-height: 100vh;
-        padding: var(--space-300) max(var(--space-300), calc((50% - var(--_max-width)) / 2));
-
+        padding: var(--space-300) max(var(--space-300), calc(50% - var(--_max-width)/2));
     }
 
 .price-grid {
@@ -169,16 +183,51 @@ button {
 
 .price-grid > * {
         padding: var(--space-24-40);
+        &[data-block="primary"] {
+            p:first-of-type {
+                font: var(--typography-callout);
+            }
+            p:last-of-type {
+                --flow-space: var(--space-175);
+                font: var(--typography-body-lg);
+            }
+        }
 
         &[data-block="secondary"],
         &[data-block="tertiary"] {
             color:var(--color-content-knockout);
+
+            h2 + * {
+                --flow-space: var(--space-175);
+            }
+            button {
+                --flow-space: var(--space-400);
+            }
+
+            ul {color:var(--color-content-knockout-75)}
         }
 
         &[data-block="secondary"] {
             background-color: var(--color-background-secondary);
+
         }
         &[data-block="tertiary"] {
-            background-color: var(--color-background-tertiary);
+            /* background-color: var(--color-background-tertiary); */
+            background-color: var(--color-background-secondary);
+            background-image: linear-gradient(hsl(0, 100%, 100%, 15.19%), hsl(0, 100%, 100%, 15.19%));
+        }
+    }
+
+    .price {
+        --cluster-space: var(--space-50);
+        color:var(--color-content-knockout-50);
+        
+        strong {
+            color: var(--color-content-knockout);
+            font: var(--typography-price);
+        }
+
+        & + * {
+            --flow-space: var(--space-50);
         }
     }
