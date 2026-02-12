@@ -112,7 +112,7 @@ strong {
         color: var(--color-content-highlight);
     }
 
-ul[type="list"]{
+ul {
         list-style: none;
         font: var(--typography-body-sm);
     }
